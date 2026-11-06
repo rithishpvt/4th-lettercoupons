@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open When &amp; Love Coupons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Caveat:wght@500;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#6b3a4f;--soft:#b07a90;--rose:#e2588a;--blush:#ffc6d9;--paper:#fffaf3}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{font-family:Quicksand,system-ui,sans-serif;color:var(--ink);overflow-x:hidden;
+  background:radial-gradient(circle at 80% 0,#fff 0,transparent 40%),linear-gradient(160deg,#ffe9f1,#fff1e6 60%,#f3e8ff);background-attachment:fixed}
+#sky{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.fh{position:absolute;bottom:-40px;opacity:.5;animation:rise linear forwards}
+@keyframes rise{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:28px 16px 60px;text-align:center}
+h1{font-family:Pacifico,cursive;font-weight:400;font-size:clamp(32px,7vw,54px);margin:6px 0 0;color:var(--rose);
+   text-shadow:3px 3px 0 #fff,5px 5px 0 var(--blush)}
+.sub{font-size:16px;color:var(--soft);margin:6px 0 0;font-weight:600}
+
+.tabs{display:inline-flex;background:#fff;border-radius:999px;padding:5px;margin:22px 0 8px;box-shadow:0 4px 0 #ffd0df}
+.tabs button{border:none;background:none;font:inherit;font-weight:700;font-size:15px;color:var(--ink);padding:10px 18px;border-radius:999px;cursor:pointer}
+.tabs button.on{background:var(--rose);color:#fff}
+.hint{color:var(--soft);font-weight:600;font-size:14px;margin:8px 0 20px}
+
+/* ---------- envelopes ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:22px}
+.env{position:relative;aspect-ratio:3/2;border:none;padding:0;cursor:pointer;background:none;font:inherit;
+     transition:transform .2s;filter:drop-shadow(0 8px 10px rgba(107,58,79,.18))}
+.env:hover{transform:translateY(-4px) rotate(-1.5deg)}
+.env .body{position:absolute;inset:0;border-radius:10px;background:var(--c)}
+.env .flap{position:absolute;left:0;right:0;top:0;height:62%;background:var(--c);filter:brightness(.94);
+     clip-path:polygon(0 0,100% 0,50% 100%);border-radius:10px 10px 0 0}
+.env .pocket{position:absolute;inset:0;border-radius:10px;background:var(--c);filter:brightness(1.04);
+     clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%)}
+.env .seal{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-28px 0 0 -22px;border-radius:50%;
+     background:radial-gradient(circle at 35% 30%,#ff8fae,#d63c6f);display:grid;place-items:center;font-size:20px;
+     box-shadow:0 2px 0 #a92a56,inset 0 -3px 6px rgba(0,0,0,.15);z-index:2}
+.env .lbl{position:absolute;left:8px;right:8px;bottom:10px;font-family:Caveat,cursive;font-weight:700;font-size:21px;line-height:1.05;
+     color:#5a2c40;z-index:2}
+.env.read .seal{background:radial-gradient(circle at 35% 30%,#fff,#f4dbe4);box-shadow:0 2px 0 #e6c3d0}
+.env.read::after{content:"opened ♡";position:absolute;top:8px;right:10px;font-size:11px;font-weight:700;color:#5a2c40;opacity:.6;z-index:2}
+
+/* ---------- letter overlay ---------- */
+.overlay{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:16px;
+         background:rgba(255,220,232,.6);backdrop-filter:blur(4px)}
+.overlay.on{display:flex}
+.letter{position:relative;width:min(520px,100%);max-height:88vh;overflow:auto;border-radius:8px;padding:34px 28px 24px;text-align:left;
+        background:repeating-linear-gradient(transparent 0 33px,rgba(226,88,138,.13) 33px 34px) var(--paper);
+        background-position:0 22px;box-shadow:0 24px 40px -14px rgba(107,58,79,.4);
+        border-left:4px double rgba(226,88,138,.35);animation:slide .8s cubic-bezier(.2,1.2,.4,1) both}
+@keyframes slide{0%{transform:translateY(60px) scale(.6) rotate(-6deg);opacity:0}100%{transform:none;opacity:1}}
+.letter h3{font-family:Pacifico,cursive;font-weight:400;color:var(--rose);font-size:24px;margin:0 0 6px}
+.letter .txt{font-family:Caveat,cursive;font-size:clamp(22px,5.4vw,26px);line-height:34px;color:#4d2637;white-space:pre-line}
+.letter .sign{font-family:Caveat,cursive;font-size:25px;text-align:right;margin-top:10px}
+.x{position:absolute;top:6px;right:12px;border:none;background:none;font-size:28px;cursor:pointer;color:var(--ink);opacity:.5}
+
+/* ---------- coupons ---------- */
+.coupons{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.cp{position:relative;display:flex;text-align:left;border-radius:16px;background:var(--c);overflow:hidden;
+    box-shadow:0 6px 0 rgba(107,58,79,.12);transition:transform .2s}
+.cp:hover{transform:translateY(-3px)}
+.cp::before,.cp::after{content:"";position:absolute;left:72px;width:22px;height:22px;border-radius:50%;background:#ffeef3;transform:translateX(-50%)}
+.cp::before{top:-11px}.cp::after{bottom:-11px}
+.cp .ic{width:72px;flex:none;display:grid;place-items:center;font-size:32px;border-right:3px dashed rgba(255,255,255,.85)}
+.cp .in{padding:14px 14px 14px 16px;flex:1}
+.cp .t{font-weight:700;font-size:16px;line-height:1.2}
+.cp .d{font-size:13px;opacity:.75;margin:4px 0 10px;font-weight:600}
+.cp button{border:none;border-radius:999px;padding:7px 14px;font:inherit;font-weight:700;font-size:13px;cursor:pointer;background:#fff;color:var(--ink);
+    box-shadow:0 3px 0 rgba(0,0,0,.08)}
+.cp .stamp{display:none;position:absolute;right:10px;top:50%;transform:translateY(-50%) rotate(-14deg);border:3px solid var(--rose);color:var(--rose);
+    border-radius:10px;padding:4px 10px;font-weight:700;font-size:14px;text-align:center;line-height:1.1;background:rgba(255,255,255,.6)}
+.cp.used .stamp{display:block;animation:stamp .4s cubic-bezier(.3,1.6,.5,1)}
+.cp.used .ic,.cp.used .in{opacity:.45}.cp.used button{display:none}
+@keyframes stamp{from{transform:translateY(-50%) rotate(-14deg) scale(2.4);opacity:0}}
+
+.dialog{width:min(420px,100%);background:#fff;border-radius:24px;padding:26px 22px;text-align:center;position:relative;animation:slide .5s ease both}
+.dialog h2{font-family:Pacifico,cursive;font-weight:400;color:var(--rose);margin:0 0 8px;font-size:26px}
+.dialog p{color:var(--soft);font-weight:600;margin:6px 0}
+.big{font-size:46px;margin-bottom:4px}
+.acts{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:16px}
+.acts button{border:none;border-radius:999px;padding:10px 18px;font:inherit;font-weight:700;cursor:pointer;background:#fff;color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.1);border:2px solid #ffe0ea}
+.acts .main{background:var(--rose);color:#fff;border-color:var(--rose)}
+
+.foot{margin-top:34px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.pill{border:none;background:#fff;border-radius:999px;padding:9px 16px;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;box-shadow:0 4px 0 #ffd0df;text-decoration:none;font-size:14px}
+.burst{position:fixed;z-index:30;pointer-events:none;font-size:20px;animation:pop 1s ease-out forwards}
+@keyframes pop{to{transform:translate(var(--dx),var(--dy)) scale(.6);opacity:0}}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div id="sky"></div>
+<main>
+  <h1>Open When…</h1>
+  <div class="sub">little letters &amp; love coupons, just for you, bangaram 💌</div>
+
+  <div class="tabs">
+    <button class="on" data-tab="letters">💌 Letters</button>
+    <button data-tab="coupons">🎟️ Coupons</button>
+  </div>
+
+  <section id="letters">
+    <div class="hint">Only open the one that fits how you feel right now ♡ <span id="readCount"></span></div>
+    <div class="grid" id="envs"></div>
+  </section>
+
+  <section id="coupons" hidden>
+    <div class="hint">Tap “Redeem” and send me a screenshot. I have to say yes, no excuses 😌 <span id="usedCount"></span></div>
+    <div class="coupons" id="cps"></div>
+  </section>
+
+  <div class="foot">
+    <a class="pill" href="index.html">🫙 Go to the love jar</a>
+    <button class="pill" id="resetBtn">🔄 Reset</button>
+  </div>
+</main>
+<div class="overlay" id="ov"></div>
+
+<script>
+/* ======== edit the letters & coupons here ======== */
+const LETTERS = [
+  {w:"you miss me", e:"🧸", c:"#ffc9a8", t:`Hey Kannammaa,
+
+If you're reading this, you miss me, and I promise I miss you more (I'm not arguing about this one).
+
+Close your eyes for a second. Imagine I'm right next to you, stealing your blanket and holding your hand. That's where I want to be.
+
+Now go text me "I miss you" right now. I'll drop everything to reply.`},
+  {w:"you're sad", e:"🫧", c:"#b9dcff", t:`My bangaram,
+
+I'm sorry today feels heavy. You don't have to be okay right now, and you don't have to explain anything.
+
+Get some water, wrap yourself in something soft, and let yourself rest. Sad days don't last forever, even when they feel like they will.
+
+I'm one call away. Always. Even at 3am.`},
+  {w:"you can't sleep", e:"🌙", c:"#cdb8ff", t:`Hello sleepy (or not so sleepy) head,
+
+Put the phone down after this, okay? 😌
+
+Take a deep breath in… and out. Think about our next date: what you'll wear, what we'll eat, how I'll keep staring at you.
+
+Tomorrow's problems can wait for tomorrow. Goodnight, bujji. I'm dreaming of you.`},
+  {w:"you're angry at me", e:"😤", c:"#ffb0b0", t:`Okay. I probably deserve this one.
+
+First, I'm sorry. Even if I'm being stubborn right now, I don't ever want to be the reason you feel hurt.
+
+Take your time. When you're ready, tell me what upset you. I'll listen properly this time, no defending myself.
+
+Also… you look cute when you're angry. (Please don't throw this letter.)`},
+  {w:"you need a laugh", e:"😂", c:"#ffe58a", t:`Emergency joke delivery 🚨
+
+Why did the boyfriend bring a ladder on the date?
+Because he heard the girl was out of his league. (That's literally me.)
+
+Still not laughing? Picture me trying to dance seriously. Yeah. You're smiling now. Mission complete.`},
+  {w:"you're stressed", e:"🌿", c:"#b8ecc4", t:`Pause. Shoulders down. Unclench your jaw. 🫶
+
+You're doing so much more than you give yourself credit for. One thing at a time, one step at a time.
+
+You've survived every hard day so far, and you'll get through this one too. And when it's over, I'm taking you out for a treat. That's a promise.`},
+  {w:"you doubt yourself", e:"🍀", c:"#c5f0b0", t:`Listen to me, Kannammaa.
+
+You are smart, kind, beautiful, and so much stronger than you think. The way you care about people is rare.
+
+If you can't believe in yourself today, borrow my belief in you. I have enough for both of us.`},
+  {w:"you're happy", e:"🌼", c:"#fff0a0", t:`YAYYY!! 🥳
+
+I love it when you're happy. Your whole face lights up and it's honestly my favourite thing in the world.
+
+Whatever made you smile today, tell me EVERYTHING. I want every single detail, and I'm already smiling with you.`},
+  {w:"you feel lonely", e:"🫂", c:"#ffd1e3", t:`You're not alone, my love. Not even a little bit.
+
+Even when I'm not beside you, I'm thinking about you. Probably right this second, smiling at my phone like an idiot.
+
+Call me. Or just send a heart and I'll know. I'll be right there.`},
+  {w:"we just had a fight", e:"🩹", c:"#ffc0cb", t:`Hey you,
+
+Fights don't change how much I love you. Not one bit.
+
+We're a team, you and me against the problem. Not you against me.
+
+So let's take a breath, then hug it out. I'll go first. (Also, I'm probably already sorry.)`},
+  {w:"you need motivation", e:"🔥", c:"#ffcf8f", t:`Get up, bangaram, you've got this! 💪
+
+Remember why you started. Remember how far you've come.
+
+I'm your biggest fan and I'm cheering for you from the sidelines with a giant sign that says "THAT'S MY GIRL."
+
+Now go show them. I'll be waiting with snacks.`},
+  {w:"you're sick", e:"🤒", c:"#d6f0ff", t:`Aww my poor baby 🥺
+
+Rest. Drink warm water. Take your medicine (yes, really). Eat something even if you don't feel like it.
+
+I wish I could make you soup and sit next to you all day. Text me when you wake up so I know you're okay.`},
+  {w:"it's your birthday", e:"🎂", c:"#ffb8d9", t:`HAPPY BIRTHDAY MY LOVE!! 🎉🎂
+
+The world got so much better the day you were born, and my life got better the day you walked into it.
+
+Today is all about you. Make a wish. (Psst… I hope it's me 😌)`},
+  {w:"it's our anniversary", e:"💍", c:"#e8c4ff", t:`Another year of us. 💕
+
+Thank you for every laugh, every fight we fixed, every silly late-night call, every time you chose me.
+
+I'd choose you again in every lifetime, Kannammaa. Here's to many, many more years of us.`},
+  {w:"you want to know how much I love you", e:"💖", c:"#ffa8c5", t:`More than biryani. More than sleep. More than winning arguments.
+
+More than I'll ever be able to fit in a letter.
+
+But if you want a number: one for every chit in the jar, times forever. 💗`},
+  {w:"you just need a hug", e:"🤗", c:"#ffe0c2", t:`*hug*
+
+*bigger hug*
+
+*the kind that lasts too long and neither of us lets go*
+
+There. Consider yourself hugged. Real one coming as soon as I see you. 💕`},
+];
+
+const COUPONS = [
+  {e:"🤗", t:"Unlimited hugs", d:"One whole day of hugs on demand", c:"#ffd1e3"},
+  {e:"🎬", t:"Movie night", d:"You pick the movie, I bring the snacks, no complaining", c:"#cdb8ff"},
+  {e:"🍝", t:"I cook for you", d:"A home-made dinner by your personal chef (me)", c:"#ffc9a8"},
+  {e:"💆‍♀️", t:"Massage", d:"A 20-minute back or head massage", c:"#b8ecc4"},
+  {e:"🏆", t:"Win an argument", d:"Instantly win any one argument. I must say 'you're right'", c:"#ffe58a"},
+  {e:"🌹", t:"Date night", d:"A full date planned by me, start to end", c:"#ffb0c8"},
+  {e:"☕", t:"Breakfast in bed", d:"Served with a smile and a forehead kiss", c:"#ffe0c2"},
+  {e:"🍦", t:"Ice cream run", d:"Any flavour, any time, I'll go get it", c:"#b9dcff"},
+  {e:"📞", t:"Long call", d:"A call that doesn't end until you say goodnight", c:"#d6f0ff"},
+  {e:"🛍️", t:"Shopping buddy", d:"I'll hold your bags and say everything looks good", c:"#ffcf8f"},
+  {e:"😴", t:"Sleep in", d:"Wake up whenever you want. No judging", c:"#e8c4ff"},
+  {e:"🍫", t:"Surprise treat", d:"Your favourite chocolate delivered to you", c:"#e6c3a8"},
+  {e:"🎤", t:"I sing for you", d:"A full song, badly, with feelings", c:"#c5f0b0"},
+  {e:"📸", t:"Photo day", d:"I'll be your photographer for as long as you want", c:"#ffc0cb"},
+  {e:"🚗", t:"Long drive", d:"Music on, windows down, just us", c:"#b8e6e0"},
+  {e:"🙊", t:"Get out of jail free", d:"Forgiven for one thing, no questions asked", c:"#fff0a0"},
+  {e:"💌", t:"Love letter", d:"A handwritten letter, just for you", c:"#ffa8c5"},
+  {e:"🎮", t:"You choose", d:"Anything you want (within reason 😌)", c:"#cfd8ff"},
+];
+/* ================================================ */
+
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},
+             set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let read = store.get("ow_read",[]);
+let used = store.get("ow_used",{});
+const ov=document.getElementById("ov");
+const close=()=>{ov.classList.remove("on");ov.innerHTML=""};
+ov.addEventListener("click",e=>{if(e.target===ov)close()});
+addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+
+/* tabs */
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
+  document.getElementById("letters").hidden = b.dataset.tab!=="letters";
+  document.getElementById("coupons").hidden = b.dataset.tab!=="coupons";
+  try{localStorage.setItem("ow_tab",b.dataset.tab)}catch(e){}
+});
+try{ if(localStorage.getItem("ow_tab")==="coupons") document.querySelector('[data-tab=coupons]').click(); }catch(e){}
+
+/* letters */
+const envs=document.getElementById("envs");
+function drawLetters(){
+  envs.innerHTML="";
+  LETTERS.forEach((L,i)=>{
+    const b=document.createElement("button");
+    b.className="env"+(read.includes(i)?" read":""); b.style.setProperty("--c",L.c);
+    b.innerHTML=`<div class="body"></div><div class="pocket"></div><div class="flap"></div>
+      <div class="seal">${L.e}</div><div class="lbl">Open when ${L.w}</div>`;
+    b.onclick=e=>openLetter(i,e);
+    envs.appendChild(b);
+  });
+  document.getElementById("readCount").textContent=`· ${read.length}/${LETTERS.length} opened`;
+}
+function openLetter(i,e){
+  const L=LETTERS[i];
+  ov.innerHTML=`<div class="letter"><button class="x" aria-label="close">×</button>
+    <h3>${L.e} Open when ${L.w}</h3><div class="txt"></div><div class="sign">— forever yours ♡</div></div>`;
+  ov.querySelector(".txt").textContent=L.t;
+  ov.querySelector(".x").onclick=close; ov.classList.add("on");
+  hearts(innerWidth/2,innerHeight/2,12);
+  if(!read.includes(i)){read.push(i);store.set("ow_read",read);drawLetters();}
+}
+
+/* coupons */
+const cps=document.getElementById("cps");
+const fmt=ts=>new Date(ts).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"});
+function drawCoupons(){
+  cps.innerHTML="";
+  COUPONS.forEach((C,i)=>{
+    const d=document.createElement("div");
+    d.className="cp"+(used[i]?" used":""); d.style.setProperty("--c",C.c);
+    d.innerHTML=`<div class="ic">${C.e}</div><div class="in"><div class="t">${C.t}</div><div class="d">${C.d}</div>
+      <button>Redeem 💝</button></div><div class="stamp">REDEEMED<br><small>${used[i]?fmt(used[i]):""}</small></div>`;
+    d.querySelector("button").onclick=()=>askRedeem(i);
+    cps.appendChild(d);
+  });
+  document.getElementById("usedCount").textContent=`· ${Object.keys(used).length}/${COUPONS.length} used`;
+}
+function askRedeem(i){
+  const C=COUPONS[i];
+  ov.innerHTML=`<div class="dialog"><button class="x" aria-label="close">×</button><div class="big">${C.e}</div>
+    <h2>${C.t}</h2><p>${C.d}</p><p>Use this coupon now? You can only use it once!</p>
+    <div class="acts"><button class="main" id="yes">Yes, redeem it! 💝</button><button id="no">Save it for later</button></div></div>`;
+  ov.querySelector(".x").onclick=ov.querySelector("#no").onclick=close;
+  ov.querySelector("#yes").onclick=()=>{
+    used[i]=Date.now(); store.set("ow_used",used); drawCoupons();
+    ov.innerHTML=`<div class="dialog"><div class="big">🎉</div><h2>Coupon redeemed!</h2>
+      <p><b>${C.e} ${C.t}</b></p><p>Redeemed on ${fmt(used[i])}</p>
+      <p>Screenshot this and send it to me. I owe you one now 😌💕</p>
+      <div class="acts"><button class="main" id="ok">Yay! 💖</button></div></div>`;
+    ov.querySelector("#ok").onclick=close; hearts(innerWidth/2,innerHeight/2,18);
+  };
+  ov.classList.add("on");
+}
+
+/* reset */
+document.getElementById("resetBtn").onclick=()=>{
+  ov.innerHTML=`<div class="dialog"><button class="x" aria-label="close">×</button><div class="big">🔄</div><h2>Reset?</h2>
+    <p>Choose what to start again</p>
+    <div class="acts"><button class="main" id="rC">🎟️ Make all coupons new again</button>
+    <button id="rL">💌 Seal all letters again</button><button id="rA">🧹 Reset everything</button><button id="rN">Never mind</button></div></div>`;
+  const done=()=>{drawLetters();drawCoupons();close();hearts(innerWidth/2,innerHeight/2,14)};
+  ov.querySelector("#rC").onclick=()=>{used={};store.set("ow_used",used);done()};
+  ov.querySelector("#rL").onclick=()=>{read=[];store.set("ow_read",read);done()};
+  ov.querySelector("#rA").onclick=()=>{used={};read=[];store.set("ow_used",used);store.set("ow_read",read);done()};
+  ov.querySelector("#rN").onclick=ov.querySelector(".x").onclick=close;
+  ov.classList.add("on");
+};
+
+/* cute extras */
+function hearts(x,y,n){
+  const em=["💖","💗","💕","✨","🌸","💘"];
+  for(let i=0;i<n;i++){
+    const h=document.createElement("div");h.className="burst";h.textContent=em[i%em.length];
+    h.style.left=x+"px";h.style.top=y+"px";
+    const a=Math.random()*Math.PI*2,r=80+Math.random()*120;
+    h.style.setProperty("--dx",Math.cos(a)*r+"px");h.style.setProperty("--dy",Math.sin(a)*r+"px");
+    document.body.appendChild(h);setTimeout(()=>h.remove(),1000);
+  }
+}
+const sky=document.getElementById("sky");
+setInterval(()=>{
+  if(document.hidden)return;
+  const h=document.createElement("div");h.className="fh";
+  h.textContent=["♡","💌","🌸","💕","🎀"][Math.random()*5|0];
+  h.style.left=Math.random()*100+"vw";h.style.fontSize=(12+Math.random()*18)+"px";
+  h.style.animationDuration=(8+Math.random()*8)+"s";
+  sky.appendChild(h);setTimeout(()=>h.remove(),16000);
+},1000);
+
+drawLetters();drawCoupons();
+</script>
+</body>
+</html>
